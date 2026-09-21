@@ -1,0 +1,1466 @@
+/* ==========================================================================
+   🎀 ESTILOS COQUETTE ROMANTIC VINTAGE - DEDICADO A ANITA 💕
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,600;1,700&family=Pinyon+Script&family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,600;1,700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+
+:root {
+  /* Paleta Coquette: Rosas porcelana & Magenta profundo */
+  --magenta-deep: #800f2f;
+  --magenta-dark: #590d22;
+  --magenta-main: #a4133c;
+  --magenta-border: #800f2f;
+  --pink-blush: #ffccd5;
+  --pink-soft: #ffe5ec;
+  --pink-cloud: #fff0f3;
+  --pink-porcelain: #fff8f9;
+  --bg-white: #ffffff;
+  --gold-accent: #d4a373;
+  
+  /* Tipografías */
+  --font-serif: 'Playfair Display', Georgia, serif;
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-script: 'Pinyon Script', cursive;
+  --font-sans: 'Plus Jakarta Sans', sans-serif;
+
+  /* Sombras y Bordes */
+  --border-delicate: 1.5px solid var(--magenta-border);
+  --border-double: 3px double var(--magenta-border);
+  --shadow-coquette: 0 12px 32px rgba(128, 15, 47, 0.08);
+  --shadow-hover: 0 16px 40px rgba(128, 15, 47, 0.16);
+  --radius-arch: 140px 140px 24px 24px;
+  --radius-card: 20px;
+  --radius-pill: 50px;
+}
+
+/* Reset y Base */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  color: var(--magenta-deep);
+  background-color: var(--pink-porcelain);
+  line-height: 1.6;
+  overflow-x: hidden;
+  position: relative;
+}
+
+::selection {
+  background: var(--magenta-main);
+  color: #ffffff;
+}
+
+.container {
+  width: 92%;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+/* Iconos SVG Vectoriales */
+.svg-icon {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  stroke-width: 0;
+  stroke: currentColor;
+  fill: currentColor;
+  vertical-align: middle;
+  transition: transform 0.2s ease;
+}
+
+.svg-icon.stroke-icon {
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* ==========================================================================
+   🎀 FONDOS Y TEXTURAS COQUETTE (GINGHAM & SATIN WAVES)
+   ========================================================================== */
+
+/* Estampado Vichy / Gingham */
+.gingham-panel {
+  background-color: #fff2f5;
+  background-image: 
+    linear-gradient(90deg, rgba(164, 19, 60, 0.07) 50%, transparent 50%),
+    linear-gradient(rgba(164, 19, 60, 0.07) 50%, transparent 50%);
+  background-size: 32px 32px;
+  position: relative;
+}
+
+/* Ondas Satinadas Perladas */
+.satin-panel {
+  background: linear-gradient(135deg, #fff5f7 0%, #ffe5ec 25%, #fff0f3 50%, #ffd6df 75%, #fff8f9 100%);
+  position: relative;
+}
+
+/* Marcos Arqueados Clásicos */
+.arched-frame {
+  border-radius: var(--radius-arch);
+  border: var(--border-delicate);
+  background: #ffffff;
+  box-shadow: var(--shadow-coquette);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.35s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.arched-frame-double {
+  outline: 4px solid rgba(255, 204, 213, 0.6);
+  outline-offset: 4px;
+}
+
+/* Separador de Gran Lazo Magenta */
+.bow-separator-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 0;
+  position: relative;
+  width: 100%;
+}
+
+.bow-separator-line {
+  flex-grow: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--magenta-main), transparent);
+  max-width: 320px;
+}
+
+.bow-center-icon {
+  margin: 0 24px;
+  width: 58px;
+  height: 48px;
+  color: var(--magenta-deep);
+  animation: bowGlow 3s infinite alternate ease-in-out;
+}
+
+@keyframes bowGlow {
+  0% { transform: scale(1); filter: drop-shadow(0 2px 4px rgba(128, 15, 47, 0.2)); }
+  100% { transform: scale(1.06); filter: drop-shadow(0 4px 10px rgba(164, 19, 60, 0.4)); }
+}
+
+/* ==========================================================================
+   🎀 BARRA DE NAVEGACIÓN SUPERIOR (COQUETTE HEADER)
+   ========================================================================== */
+.site-header {
+  position: sticky;
+  top: 15px;
+  z-index: 100;
+  padding: 0 15px;
+}
+
+.nav-coquette-bar {
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: var(--border-delicate);
+  outline: 3px solid rgba(255, 204, 213, 0.5);
+  border-radius: var(--radius-pill);
+  box-shadow: var(--shadow-coquette);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 28px;
+  max-width: 1080px;
+  margin: 0 auto;
+}
+
+.nav-brand {
+  font-family: var(--font-serif);
+  font-size: 1.35rem;
+  font-style: italic;
+  color: var(--magenta-deep);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+}
+
+.nav-brand-bow {
+  width: 24px;
+  height: 20px;
+  color: var(--magenta-main);
+}
+
+.nav-links {
+  display: flex;
+  gap: 16px;
+  list-style: none;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: var(--magenta-deep);
+  font-family: var(--font-serif);
+  font-weight: 600;
+  font-size: 0.98rem;
+  padding: 8px 18px;
+  border-radius: var(--radius-pill);
+  border: 1px solid transparent;
+  transition: all 0.25s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.nav-links a:hover {
+  background: var(--pink-soft);
+  border-color: var(--pink-blush);
+  color: var(--magenta-dark);
+  transform: translateY(-2px);
+}
+
+/* ==========================================================================
+   🌸 PANEL 1: HERO SECTION & RETRATO ARQUEADO (GINGHAM PANEL)
+   ========================================================================== */
+.hero-panel {
+  padding: 60px 0 50px;
+  border-bottom: var(--border-delicate);
+}
+
+.hero-layout-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 40px;
+  align-items: center;
+}
+
+.hero-text-content {
+  text-align: left;
+}
+
+.hero-tag-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #ffffff;
+  border: var(--border-delicate);
+  padding: 6px 18px;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-serif);
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--magenta-main);
+  margin-bottom: 20px;
+  box-shadow: 0 4px 12px rgba(128, 15, 47, 0.06);
+}
+
+.hero-title {
+  font-family: var(--font-serif);
+  font-size: 3.4rem;
+  font-weight: 700;
+  color: var(--magenta-dark);
+  line-height: 1.15;
+  margin-bottom: 14px;
+}
+
+.hero-title em {
+  font-family: var(--font-script);
+  font-size: 4.4rem;
+  color: var(--magenta-main);
+  font-weight: 400;
+  display: block;
+  line-height: 0.9;
+  margin: 6px 0;
+}
+
+.hero-description {
+  font-size: 1.08rem;
+  color: var(--magenta-deep);
+  opacity: 0.9;
+  margin-bottom: 25px;
+  max-width: 540px;
+  line-height: 1.7;
+}
+
+/* Retrato Arqueado Coquette */
+.hero-portrait-wrap {
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
+.hero-portrait-frame {
+  width: 100%;
+  max-width: 380px;
+  aspect-ratio: 3 / 4;
+  border-radius: var(--radius-arch);
+  border: 2px solid var(--magenta-deep);
+  outline: 6px solid #ffffff;
+  box-shadow: 0 20px 50px rgba(128, 15, 47, 0.18);
+  overflow: hidden;
+  position: relative;
+  background: #ffffff;
+}
+
+.hero-portrait-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+.hero-portrait-frame:hover .hero-portrait-img {
+  transform: scale(1.03);
+}
+
+.portrait-top-bow {
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50px;
+  height: 42px;
+  color: var(--magenta-deep);
+  z-index: 10;
+  filter: drop-shadow(0 4px 8px rgba(128, 15, 47, 0.3));
+}
+
+/* Widget Reproductor & Contador */
+.hero-widgets-row {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.coquette-music-widget {
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+  background: #ffffff;
+  border: var(--border-delicate);
+  border-radius: var(--radius-pill);
+  padding: 8px 22px;
+  box-shadow: var(--shadow-coquette);
+  width: fit-content;
+}
+
+.coquette-btn {
+  background: var(--magenta-deep);
+  color: #ffffff;
+  border: none;
+  padding: 10px 24px;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-serif);
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 14px rgba(128, 15, 47, 0.25);
+}
+
+.coquette-btn:hover {
+  background: var(--magenta-main);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(164, 19, 60, 0.35);
+}
+
+.coquette-btn.secondary {
+  background: #ffffff;
+  color: var(--magenta-deep);
+  border: var(--border-delicate);
+  box-shadow: none;
+}
+
+.coquette-btn.secondary:hover {
+  background: var(--pink-soft);
+}
+
+.music-status-text {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 0.95rem;
+  color: var(--magenta-deep);
+}
+
+/* Contador de Amor Coquette */
+.coquette-counter-strip {
+  background: #ffffff;
+  border: var(--border-delicate);
+  border-radius: var(--radius-card);
+  padding: 22px 28px;
+  box-shadow: var(--shadow-coquette);
+  max-width: 540px;
+}
+
+.counter-strip-header {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.05rem;
+  color: var(--magenta-dark);
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.counter-digits-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+.counter-cell {
+  background: var(--pink-porcelain);
+  border: 1px solid var(--pink-blush);
+  border-radius: 12px;
+  padding: 12px 6px;
+  text-align: center;
+}
+
+.counter-cell .number {
+  font-family: var(--font-serif);
+  font-size: 1.9rem;
+  font-weight: 700;
+  color: var(--magenta-deep);
+  line-height: 1;
+}
+
+.counter-cell .label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 700;
+  color: var(--magenta-main);
+  margin-top: 4px;
+}
+
+/* ==========================================================================
+   🌸 PANEL 2: INTRO COQUETTE & CITA ROMÁNTICA ARQUEADA
+   ========================================================================== */
+.quote-intro-panel {
+  padding: 70px 0;
+  text-align: center;
+}
+
+.arched-quote-box {
+  background: #ffffff;
+  border-radius: 160px 160px 24px 24px;
+  border: var(--border-delicate);
+  outline: 4px solid rgba(255, 204, 213, 0.5);
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 55px 40px 40px;
+  box-shadow: var(--shadow-coquette);
+  position: relative;
+}
+
+.quote-box-bow {
+  width: 44px;
+  height: 38px;
+  color: var(--magenta-main);
+  margin-bottom: 16px;
+}
+
+.quote-lead {
+  font-family: var(--font-serif);
+  font-size: 1.75rem;
+  font-style: italic;
+  color: var(--magenta-dark);
+  line-height: 1.4;
+  margin-bottom: 16px;
+}
+
+.quote-attribution {
+  font-family: var(--font-script);
+  font-size: 2.2rem;
+  color: var(--magenta-main);
+}
+
+.quote-subtext {
+  font-size: 0.98rem;
+  color: var(--magenta-deep);
+  opacity: 0.85;
+  margin-top: 15px;
+  max-width: 580px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ==========================================================================
+   🗺️ PANEL 3: NUESTRA RUTA DE AMOR (ROADMAP SINUOSO 2021-2026)
+   ========================================================================== */
+.roadmap-section {
+  padding: 70px 0 90px;
+  border-top: var(--border-delicate);
+  border-bottom: var(--border-delicate);
+}
+
+.section-head-coquette {
+  text-align: center;
+  margin-bottom: 45px;
+}
+
+.section-subtitle-serif {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.15rem;
+  color: var(--magenta-main);
+  display: block;
+  margin-bottom: 6px;
+}
+
+.section-title-serif {
+  font-family: var(--font-serif);
+  font-size: 2.6rem;
+  font-weight: 700;
+  color: var(--magenta-dark);
+  line-height: 1.2;
+}
+
+.section-desc-serif {
+  max-width: 650px;
+  margin: 12px auto 0;
+  font-size: 1.05rem;
+  color: var(--magenta-deep);
+  opacity: 0.9;
+}
+
+/* Filtros por Año */
+.roadmap-year-filters {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 50px;
+}
+
+.year-filter-btn {
+  background: #ffffff;
+  border: var(--border-delicate);
+  color: var(--magenta-deep);
+  font-family: var(--font-serif);
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 8px 22px;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  transition: all 0.25s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.year-filter-btn:hover,
+.year-filter-btn.active {
+  background: var(--magenta-deep);
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(128, 15, 47, 0.25);
+}
+
+/* Grilla de la Ruta con Marcos Arqueados */
+.roadmap-route-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 32px;
+  position: relative;
+}
+
+.roadmap-card {
+  background: #ffffff;
+  border-radius: var(--radius-arch);
+  border: var(--border-delicate);
+  outline: 3px solid rgba(255, 204, 213, 0.45);
+  box-shadow: var(--shadow-coquette);
+  padding: 35px 26px 26px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  transition: all 0.35s cubic-bezier(0.165, 0.84, 0.44, 1);
+  overflow: hidden;
+}
+
+.roadmap-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-hover);
+  outline-color: var(--pink-blush);
+}
+
+.card-top-arch-badge {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+  padding-bottom: 14px;
+  border-bottom: 1px dashed var(--pink-blush);
+}
+
+.card-year-tag {
+  font-family: var(--font-serif);
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--magenta-main);
+  background: var(--pink-soft);
+  padding: 4px 14px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--pink-blush);
+}
+
+.card-icon-circle {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: var(--border-delicate);
+  background: var(--pink-porcelain);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--magenta-deep);
+}
+
+.card-icon-circle .svg-icon {
+  width: 22px;
+  height: 22px;
+}
+
+.roadmap-card .card-date {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 0.95rem;
+  color: var(--magenta-main);
+  margin-bottom: 6px;
+}
+
+.roadmap-card .card-title {
+  font-family: var(--font-serif);
+  font-size: 1.35rem;
+  color: var(--magenta-dark);
+  margin-bottom: 10px;
+  line-height: 1.3;
+}
+
+.roadmap-card .card-location {
+  font-size: 0.85rem;
+  color: var(--magenta-deep);
+  opacity: 0.8;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.roadmap-card .card-summary {
+  font-size: 0.96rem;
+  line-height: 1.6;
+  color: var(--magenta-deep);
+  margin-bottom: 20px;
+  flex-grow: 1;
+}
+
+.card-quote-strip {
+  background: var(--pink-porcelain);
+  border-left: 3px solid var(--magenta-main);
+  padding: 10px 14px;
+  border-radius: 0 8px 8px 0;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 0.9rem;
+  color: var(--magenta-dark);
+  margin-bottom: 20px;
+}
+
+.open-memory-btn {
+  background: transparent;
+  border: var(--border-delicate);
+  color: var(--magenta-deep);
+  font-family: var(--font-serif);
+  font-weight: 600;
+  font-size: 0.9rem;
+  padding: 9px 18px;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.25s ease;
+  width: 100%;
+}
+
+.open-memory-btn:hover {
+  background: var(--pink-soft);
+  color: var(--magenta-main);
+}
+
+/* ==========================================================================
+   📖 MODAL COQUETTE DE LECTURA DE HISTORIA
+   ========================================================================== */
+.story-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(89, 13, 34, 0.6);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  padding: 20px;
+}
+
+.story-modal-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.story-modal-content {
+  background: #ffffff;
+  border: var(--border-delicate);
+  outline: 6px solid var(--pink-soft);
+  border-radius: 120px 120px 24px 24px;
+  width: 100%;
+  max-width: 680px;
+  max-height: 85vh;
+  box-shadow: 0 25px 60px rgba(89, 13, 34, 0.3);
+  overflow-y: auto;
+  position: relative;
+  padding: 45px 35px 35px;
+  transform: scale(0.92);
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.story-modal-overlay.active .story-modal-content {
+  transform: scale(1);
+}
+
+.modal-close-btn {
+  position: absolute;
+  top: 20px;
+  right: 22px;
+  background: var(--pink-porcelain);
+  border: var(--border-delicate);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  color: var(--magenta-deep);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.modal-close-btn:hover {
+  background: var(--magenta-deep);
+  color: #ffffff;
+}
+
+.modal-header {
+  text-align: center;
+  border-bottom: 1px dashed var(--pink-blush);
+  padding-bottom: 20px;
+  margin-bottom: 24px;
+}
+
+#modal-story-title {
+  font-family: var(--font-serif);
+  font-size: 1.85rem;
+  color: var(--magenta-dark);
+  margin-bottom: 8px;
+}
+
+.modal-meta-row {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  font-size: 0.9rem;
+  font-family: var(--font-serif);
+  font-style: italic;
+  color: var(--magenta-main);
+}
+
+.modal-quote-highlight {
+  background: var(--pink-porcelain);
+  border: 1px dashed var(--pink-blush);
+  border-left: 4px solid var(--magenta-main);
+  padding: 16px 20px;
+  border-radius: 0 12px 12px 0;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.05rem;
+  color: var(--magenta-dark);
+  margin-bottom: 24px;
+}
+
+.modal-story-body {
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: var(--magenta-deep);
+}
+
+.modal-story-body p {
+  margin-bottom: 18px;
+}
+
+/* ==========================================================================
+   🖼️ PANEL 4: GALERÍA DE MARCOS ARQUEADOS COQUETTE
+   ========================================================================== */
+.gallery-panel {
+  padding: 60px 0;
+}
+
+.arched-gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 35px;
+}
+
+.gallery-card-frame {
+  background: #ffffff;
+  border-radius: var(--radius-arch);
+  border: var(--border-delicate);
+  outline: 4px solid rgba(255, 204, 213, 0.5);
+  box-shadow: var(--shadow-coquette);
+  padding: 20px 20px 28px;
+  text-align: center;
+}
+
+.gallery-image-arch {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border-radius: 120px 120px 14px 14px;
+  object-fit: cover;
+  border: 1px solid var(--pink-blush);
+  margin-bottom: 18px;
+}
+
+.gallery-card-title {
+  font-family: var(--font-serif);
+  font-size: 1.4rem;
+  color: var(--magenta-dark);
+  margin-bottom: 6px;
+}
+
+.gallery-card-desc {
+  font-size: 0.95rem;
+  color: var(--magenta-deep);
+  opacity: 0.85;
+}
+
+/* ==========================================================================
+   🎨 PANEL 5: PINTAR EL RAMO DE SANRIO (COQUETTE EDITION)
+   ========================================================================== */
+.bouquet-panel {
+  padding: 70px 0;
+}
+
+.bouquet-coquette-box {
+  background: #ffffff;
+  border-radius: var(--radius-arch);
+  border: var(--border-delicate);
+  outline: 5px solid rgba(255, 204, 213, 0.5);
+  box-shadow: var(--shadow-coquette);
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 50px 30px 40px;
+  text-align: center;
+}
+
+.bouquet-instructions {
+  background: var(--pink-porcelain);
+  border: 1px dashed var(--pink-blush);
+  border-radius: var(--radius-pill);
+  padding: 10px 24px;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 0.98rem;
+  color: var(--magenta-deep);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 25px;
+}
+
+/* Paleta de colores */
+.palette-toolbar-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 25px;
+}
+
+.palette-swatches {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+.color-swatch {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 2px solid #ffffff;
+  box-shadow: 0 3px 8px rgba(128, 15, 47, 0.15);
+  cursor: pointer;
+  transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.color-swatch:hover {
+  transform: scale(1.2);
+}
+
+.color-swatch.active {
+  transform: scale(1.25);
+  box-shadow: 0 0 0 3px var(--magenta-deep), 0 4px 10px rgba(128, 15, 47, 0.3);
+}
+
+.custom-color-control {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-serif);
+  font-size: 0.95rem;
+  color: var(--magenta-deep);
+}
+
+#custom-color-picker {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 34px;
+  height: 34px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+#custom-color-picker::-webkit-color-swatch {
+  border-radius: 50%;
+  border: 2px solid var(--magenta-border);
+}
+
+/* Botones de acción del ramo */
+.bouquet-actions-bar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 30px;
+}
+
+.action-btn-coquette {
+  background: #ffffff;
+  border: var(--border-delicate);
+  color: var(--magenta-deep);
+  font-family: var(--font-serif);
+  font-weight: 600;
+  font-size: 0.92rem;
+  padding: 8px 20px;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.25s ease;
+}
+
+.action-btn-coquette:hover {
+  background: var(--pink-soft);
+  color: var(--magenta-main);
+  transform: translateY(-2px);
+}
+
+.action-btn-coquette.primary {
+  background: var(--magenta-deep);
+  color: #ffffff;
+  border-color: transparent;
+  box-shadow: 0 4px 12px rgba(128, 15, 47, 0.25);
+}
+
+.action-btn-coquette.primary:hover {
+  background: var(--magenta-main);
+}
+
+.bouquet-canvas-wrapper {
+  background: #ffffff;
+  border: 1px solid var(--pink-blush);
+  border-radius: var(--radius-arch);
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.bouquet-svg {
+  width: 100%;
+  max-width: 500px;
+  height: auto;
+}
+
+.colorable {
+  cursor: pointer;
+  transition: fill 0.2s ease;
+}
+
+.colorable:hover {
+  opacity: 0.85;
+}
+
+/* ==========================================================================
+   🧩 PANEL 6: SOPA DE LETRAS / PUPILETRAS COQUETTE
+   ========================================================================== */
+.pupiletras-panel {
+  padding: 70px 0;
+}
+
+.wordsearch-coquette-box {
+  background: #ffffff;
+  border-radius: var(--radius-arch);
+  border: var(--border-delicate);
+  outline: 5px solid rgba(255, 204, 213, 0.5);
+  box-shadow: var(--shadow-coquette);
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 50px 30px 40px;
+}
+
+.wordsearch-banner-header {
+  background: var(--pink-porcelain);
+  border: var(--border-delicate);
+  border-radius: var(--radius-pill);
+  padding: 12px 26px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.banner-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.banner-left .banner-icon {
+  width: 26px;
+  height: 24px;
+  color: var(--magenta-main);
+}
+
+.banner-title {
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--magenta-dark);
+}
+
+.banner-subtitle {
+  font-size: 0.82rem;
+  color: var(--magenta-deep);
+  opacity: 0.8;
+}
+
+.banner-counter-badge {
+  background: #ffffff;
+  border: var(--border-delicate);
+  color: var(--magenta-deep);
+  font-family: var(--font-serif);
+  font-size: 0.95rem;
+  font-weight: 700;
+  padding: 6px 18px;
+  border-radius: var(--radius-pill);
+}
+
+.wordsearch-grid-wrap {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.wordsearch-grid {
+  display: grid;
+  gap: 4px;
+  background: #ffffff;
+  padding: 14px;
+  border-radius: 16px;
+  border: var(--border-delicate);
+  box-shadow: 0 4px 15px rgba(128, 15, 47, 0.08);
+  touch-action: none;
+}
+
+.wordsearch-cell {
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--magenta-dark);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  background: transparent;
+}
+
+.wordsearch-cell:hover {
+  background: var(--pink-soft);
+}
+
+.wordsearch-cell.selecting {
+  background: var(--magenta-main) !important;
+  color: #ffffff !important;
+  transform: scale(1.08);
+}
+
+.wordsearch-cell.found-cell {
+  font-weight: 700;
+  color: #ffffff;
+  background-color: var(--magenta-main);
+}
+
+.wordsearch-cell.hint-pulse {
+  animation: hintPulseAnim 0.6s infinite alternate;
+}
+
+@keyframes hintPulseAnim {
+  from { background: var(--pink-blush); transform: scale(1); }
+  to { background: var(--magenta-deep); color: #ffffff; transform: scale(1.2); }
+}
+
+.wordsearch-words-card {
+  background: var(--pink-porcelain);
+  border: 1px dashed var(--pink-blush);
+  border-radius: 16px;
+  padding: 20px;
+  margin-bottom: 25px;
+}
+
+.words-header {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.15rem;
+  color: var(--magenta-dark);
+  margin-bottom: 14px;
+  text-align: center;
+}
+
+.wordsearch-words-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 10px;
+}
+
+.wordsearch-word-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #ffffff;
+  border: 1px solid var(--pink-blush);
+  padding: 6px 14px;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-serif);
+  font-size: 0.9rem;
+  color: var(--magenta-deep);
+  transition: all 0.25s ease;
+}
+
+.wordsearch-word-item.found {
+  background: var(--pink-soft);
+  color: var(--magenta-main);
+  text-decoration: line-through;
+  opacity: 0.85;
+}
+
+.wordsearch-word-item .word-heart-svg {
+  width: 14px;
+  height: 14px;
+  color: var(--magenta-main);
+}
+
+/* Modal Victoria Pupiletras */
+.win-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(89, 13, 34, 0.65);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  padding: 20px;
+}
+
+.win-modal-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.win-modal-box {
+  background: #ffffff;
+  border: var(--border-delicate);
+  outline: 6px solid var(--pink-soft);
+  border-radius: 120px 120px 24px 24px;
+  max-width: 500px;
+  width: 100%;
+  padding: 45px 30px 35px;
+  text-align: center;
+  box-shadow: 0 25px 60px rgba(89, 13, 34, 0.3);
+}
+
+.win-icon-bow {
+  width: 60px;
+  height: 52px;
+  color: var(--magenta-main);
+  margin-bottom: 16px;
+}
+
+.win-title {
+  font-family: var(--font-serif);
+  font-size: 2.2rem;
+  color: var(--magenta-dark);
+  margin-bottom: 12px;
+}
+
+.win-msg {
+  font-size: 1.05rem;
+  color: var(--magenta-deep);
+  line-height: 1.6;
+  margin-bottom: 25px;
+}
+
+/* ==========================================================================
+   💌 PANEL 7: EL FRASQUITO DE NOTAS DE AMOR
+   ========================================================================== */
+.love-jar-panel {
+  padding: 70px 0;
+}
+
+.love-jar-wrapper {
+  max-width: 650px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.jar-interactive-button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  display: inline-block;
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.jar-interactive-button:hover {
+  transform: scale(1.06) rotate(-2deg);
+}
+
+.jar-svg-illustration {
+  width: 140px;
+  height: auto;
+  filter: drop-shadow(0 8px 20px rgba(128, 15, 47, 0.15));
+}
+
+.jar-tap-hint {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #ffffff;
+  border: var(--border-delicate);
+  color: var(--magenta-deep);
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 0.95rem;
+  padding: 8px 22px;
+  border-radius: var(--radius-pill);
+  margin-top: 18px;
+}
+
+.love-note-card {
+  background: #ffffff;
+  border: var(--border-delicate);
+  border-radius: var(--radius-arch);
+  outline: 4px solid var(--pink-soft);
+  padding: 40px 30px 30px;
+  box-shadow: var(--shadow-hover);
+  margin-top: 30px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(20px);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.love-note-card.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.love-note-text {
+  font-family: var(--font-serif);
+  font-size: 1.65rem;
+  font-style: italic;
+  color: var(--magenta-dark);
+  line-height: 1.4;
+  margin-bottom: 14px;
+}
+
+.love-note-author {
+  font-family: var(--font-script);
+  font-size: 2.2rem;
+  color: var(--magenta-main);
+  margin-bottom: 22px;
+}
+
+/* ==========================================================================
+   💖 PANEL 8: PIE DE PÁGINA (COQUETTE FOOTER)
+   ========================================================================== */
+.site-footer {
+  padding: 60px 0 40px;
+  border-top: var(--border-delicate);
+  text-align: center;
+  background: #ffffff;
+}
+
+.footer-quote {
+  font-family: var(--font-serif);
+  font-size: 1.6rem;
+  font-style: italic;
+  color: var(--magenta-dark);
+  margin-bottom: 14px;
+}
+
+.footer-monogram {
+  font-family: var(--font-script);
+  font-size: 3.2rem;
+  color: var(--magenta-main);
+  margin-bottom: 10px;
+}
+
+.footer-credits {
+  font-family: var(--font-serif);
+  font-size: 0.95rem;
+  color: var(--magenta-deep);
+  opacity: 0.85;
+}
+
+/* Notificación Toast */
+.love-toast {
+  position: fixed;
+  bottom: 25px;
+  left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  background: #ffffff;
+  border: var(--border-delicate);
+  color: var(--magenta-dark);
+  padding: 12px 28px;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-serif);
+  font-size: 0.95rem;
+  box-shadow: 0 8px 24px rgba(128, 15, 47, 0.25);
+  z-index: 9999;
+  opacity: 0;
+  transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  pointer-events: none;
+}
+
+.love-toast.visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ==========================================================================
+   📱 RESPONSIVE DESIGN (MÓVILES & TABLETS)
+   ========================================================================== */
+@media (max-width: 900px) {
+  .hero-layout-grid {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .hero-text-content {
+    text-align: center;
+  }
+
+  .hero-description {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .hero-widgets-row {
+    align-items: center;
+  }
+
+  .arched-gallery-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 2.6rem;
+  }
+
+  .hero-title em {
+    font-size: 3.4rem;
+  }
+
+  .nav-links {
+    display: none;
+  }
+
+  .counter-digits-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .roadmap-route-container {
+    grid-template-columns: 1fr;
+  }
+
+  .wordsearch-cell {
+    width: 21px;
+    height: 21px;
+    font-size: 0.78rem;
+  }
+
+  .wordsearch-banner-header {
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+  }
+
+  .banner-left {
+    flex-direction: column;
+    gap: 6px;
+  }
+}
