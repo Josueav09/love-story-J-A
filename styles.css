@@ -740,7 +740,7 @@ html.is-locked #launch-lock-overlay {
   display: flex;
   flex-direction: column;
   position: relative;
-  transition: all 0.35s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: transform 0.35s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.35s cubic-bezier(0.165, 0.84, 0.44, 1), outline-color 0.35s ease;
   overflow: hidden;
 }
 
@@ -748,6 +748,41 @@ html.is-locked #launch-lock-overlay {
   transform: translateY(-6px);
   box-shadow: var(--shadow-hover);
   outline-color: var(--pink-blush);
+}
+
+.card-step-number {
+  position: absolute;
+  top: 14px;
+  left: -6px;
+  font-family: var(--font-script);
+  font-size: 2.1rem;
+  line-height: 1;
+  color: var(--pink-blush);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.card-top-arch-badge,
+.roadmap-card .card-date,
+.roadmap-card .card-title,
+.roadmap-card .card-location,
+.roadmap-card .card-summary,
+.card-quote-strip,
+.open-memory-btn {
+  position: relative;
+  z-index: 1;
+}
+
+/* ✨ Revelado suave al hacer scroll (roadmap y galería) */
+.reveal-up {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.reveal-up.revealed {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .card-top-arch-badge {
@@ -975,6 +1010,51 @@ html.is-locked #launch-lock-overlay {
   margin-bottom: 18px;
 }
 
+/* Navegación Anterior / Siguiente dentro de modales (historia y galería) */
+.modal-nav-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 24px;
+  padding-top: 18px;
+  border-top: 1px dashed var(--pink-blush);
+}
+
+.modal-nav-btn {
+  background: var(--pink-porcelain);
+  border: var(--border-delicate);
+  color: var(--magenta-deep);
+  font-family: var(--font-serif);
+  font-weight: 600;
+  font-size: 0.88rem;
+  padding: 8px 16px;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+}
+
+.modal-nav-btn:hover:not(:disabled) {
+  background: var(--magenta-deep);
+  color: #ffffff;
+}
+
+.modal-nav-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.modal-nav-step {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 0.88rem;
+  color: var(--magenta-main);
+  white-space: nowrap;
+}
+
 /* ==========================================================================
    🖼️ PANEL 4: GALERÍA DE MARCOS ARQUEADOS COQUETTE
    ========================================================================== */
@@ -997,6 +1077,14 @@ html.is-locked #launch-lock-overlay {
   box-shadow: var(--shadow-coquette);
   padding: 20px 20px 28px;
   text-align: center;
+  cursor: pointer;
+  transition: transform 0.35s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.35s cubic-bezier(0.165, 0.84, 0.44, 1), outline-color 0.35s ease;
+}
+
+.gallery-card-frame:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-hover);
+  outline-color: var(--pink-blush);
 }
 
 .gallery-image-arch {
@@ -1004,6 +1092,7 @@ html.is-locked #launch-lock-overlay {
   aspect-ratio: 4 / 3;
   border-radius: 120px 120px 14px 14px;
   object-fit: cover;
+  object-position: center 25%;
   border: 1px solid var(--pink-blush);
   margin-bottom: 18px;
 }
@@ -1017,6 +1106,81 @@ html.is-locked #launch-lock-overlay {
 
 .gallery-card-desc {
   font-size: 0.95rem;
+  color: var(--magenta-deep);
+  opacity: 0.85;
+}
+
+/* ==========================================================================
+   🔍 LIGHTBOX DE LA GALERÍA (VER FOTO COMPLETA)
+   ========================================================================== */
+.gallery-lightbox-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(89, 13, 34, 0.7);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1100;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  padding: 20px;
+}
+
+.gallery-lightbox-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.gallery-lightbox-content {
+  background: #ffffff;
+  border: var(--border-delicate);
+  outline: 6px solid var(--pink-soft);
+  border-radius: 32px;
+  width: 100%;
+  max-width: 560px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 25px 60px rgba(89, 13, 34, 0.3);
+  position: relative;
+  padding: 24px 24px 20px;
+  transform: scale(0.92);
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.gallery-lightbox-overlay.active .gallery-lightbox-content {
+  transform: scale(1);
+}
+
+.gallery-lightbox-img {
+  width: 100%;
+  max-height: 62vh;
+  object-fit: contain;
+  border-radius: 20px;
+  border: 1px solid var(--pink-blush);
+  background: var(--pink-porcelain);
+  margin-bottom: 18px;
+}
+
+.gallery-lightbox-caption {
+  text-align: center;
+  padding: 0 6px;
+}
+
+.gallery-lightbox-caption h3 {
+  font-family: var(--font-serif);
+  font-size: 1.3rem;
+  color: var(--magenta-dark);
+  margin-bottom: 6px;
+}
+
+.gallery-lightbox-caption p {
+  font-size: 0.92rem;
   color: var(--magenta-deep);
   opacity: 0.85;
 }
@@ -1759,6 +1923,14 @@ html.is-locked #launch-lock-overlay {
   .wordsearch-grid {
     gap: 3px;
     padding: 10px;
+  }
+
+  .modal-nav-btn span {
+    display: none;
+  }
+
+  .modal-nav-row {
+    gap: 8px;
   }
 }
 

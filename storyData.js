@@ -417,6 +417,34 @@ const loveQuotes = [
   }
 ];
 
+// Fotografías reales para "Momentos Que Guardamos" (galería con lightbox)
+const galleryMoments = [
+  {
+    title: "Los Atardeceres Rosados",
+    desc: "En la playa, en el parque o en la escalera a medianoche: tu presencia siempre me transmite una paz inmensa.",
+    image: "assets/atardecer_rosado.png",
+    alt: "Atardecer rosado sobre el mar en la Costa Verde"
+  },
+  {
+    title: "Un Beso que lo Dice Todo",
+    desc: "De esos besitos espontáneos y tiernos que se roban mi corazón cada vez, sin importar el día.",
+    image: "assets/beso.jpg",
+    alt: "Anita dándole un beso en la mejilla a Josue"
+  },
+  {
+    title: "Luces de Navidad Juntos",
+    desc: "La Plaza de Armas iluminada, el frío de diciembre y tú a mi lado: la postal perfecta para cerrar el año.",
+    image: "assets/Navidad.jpg",
+    alt: "Josue y Anita abrazados frente a las luces navideñas"
+  },
+  {
+    title: "Nuestra Primera Foto Juntos",
+    desc: "Uno de los primeros recuerdos que guardamos con cariño, cuando esta historia apenas comenzaba a escribirse.",
+    image: "assets/primeraFoto.jpg",
+    alt: "Primera fotografía de Josue y Anita juntos"
+  }
+];
+
 // Palabras exactas para el Pupiletras (12 palabras)
 const wordSearchWords = [
   "CARIÑO",
@@ -438,7 +466,8 @@ if (typeof window !== "undefined") {
   window.storyEvents = storyEvents;
   window.loveQuotes = loveQuotes;
   window.wordSearchWords = wordSearchWords;
+  window.galleryMoments = galleryMoments;
 }
 if (typeof module !== "undefined" && module.exports) {
-  module.exports = { storyEvents, loveQuotes, wordSearchWords };
+  module.exports = { storyEvents, loveQuotes, wordSearchWords, galleryMoments };
 }

@@ -19,11 +19,34 @@ document.addEventListener("DOMContentLoaded", () => {
   initMusicPlayer();
   initLoveCounter();
   initRoadmap();
+  initGalleryLightbox();
   initBouquetColoring();
   initWordSearch();
   initLoveJar();
   initCoquetteParticles();
 });
+
+/* ============================================================================
+ * ✨ REVELADO SUAVE AL HACER SCROLL (IntersectionObserver)
+ * ============================================================================
+ */
+function observeReveal(elements) {
+  if (!("IntersectionObserver" in window)) {
+    elements.forEach(el => el.classList.add("revealed"));
+    return;
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("revealed");
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15, rootMargin: "0px 0px -40px 0px" });
+
+  elements.forEach(el => observer.observe(el));
+}
 
 /* ============================================================================
  * 🔒 CANDADO DE LANZAMIENTO (ABRE EL 22/09 A LAS 00:00)
@@ -315,26 +338,34 @@ function initRoadmap() {
   const modalLocation = document.getElementById("modal-story-location");
   const modalQuote = document.getElementById("modal-story-quote");
   const modalContent = document.getElementById("modal-story-content");
+  const modalPrevBtn = document.getElementById("story-modal-prev");
+  const modalNextBtn = document.getElementById("story-modal-next");
+  const modalStep = document.getElementById("story-modal-step");
 
   if (!container || !window.storyEvents) return;
+
+  let currentEvents = window.storyEvents.slice();
+  let currentIndex = -1;
 
   function renderRoadmap(selectedYear = "all") {
     container.innerHTML = "";
 
-    const events = window.storyEvents.filter(item => {
+    currentEvents = window.storyEvents.filter(item => {
       if (selectedYear === "all") return true;
       return item.year === selectedYear;
     });
 
-    events.forEach((evt) => {
+    currentEvents.forEach((evt, idx) => {
       const card = document.createElement("div");
-      card.className = "roadmap-card";
+      card.className = "roadmap-card reveal-up";
 
       const iconHtml = getSvgIcon(evt.iconType || "heart");
       const locationIcon = getSvgIcon("location");
       const arrowIcon = getSvgIcon("arrow");
+      const stepNumber = String(idx + 1).padStart(2, "0");
 
       card.innerHTML = `
+        <span class="card-step-number">${stepNumber}</span>
         <div class="card-top-arch-badge">
           <span class="card-year-tag">${evt.tag} (${evt.year})</span>
           <div class="card-icon-circle">${iconHtml}</div>
@@ -357,24 +388,46 @@ function initRoadmap() {
     container.querySelectorAll(".open-memory-btn").forEach(btn => {
       btn.addEventListener("click", () => {
         const id = parseInt(btn.dataset.id);
-        const story = window.storyEvents.find(s => s.id === id);
-        if (story && modal) {
-          modalTitle.textContent = story.title;
-          modalDate.textContent = `Fecha: ${story.date}`;
-          modalLocation.textContent = `Lugar: ${story.location}`;
-          modalQuote.textContent = `“${story.quote}”`;
-
-          const paragraphs = story.content
-            .split("\n\n")
-            .map(p => `<p>${p.trim()}</p>`)
-            .join("");
-          modalContent.innerHTML = paragraphs;
-
-          modal.classList.add("active");
-          document.body.style.overflow = "hidden";
-        }
+        openStoryById(id);
       });
     });
+
+    observeReveal(container.querySelectorAll(".reveal-up"));
+  }
+
+  function renderModal(story) {
+    modalTitle.textContent = story.title;
+    modalDate.textContent = `Fecha: ${story.date}`;
+    modalLocation.textContent = `Lugar: ${story.location}`;
+    modalQuote.textContent = `“${story.quote}”`;
+
+    const paragraphs = story.content
+      .split("\n\n")
+      .map(p => `<p>${p.trim()}</p>`)
+      .join("");
+    modalContent.innerHTML = paragraphs;
+
+    if (modalStep) modalStep.textContent = `${currentIndex + 1} / ${currentEvents.length}`;
+    if (modalPrevBtn) modalPrevBtn.disabled = currentIndex <= 0;
+    if (modalNextBtn) modalNextBtn.disabled = currentIndex >= currentEvents.length - 1;
+
+    modalContent.scrollTop = 0;
+  }
+
+  function openStoryById(id) {
+    const idx = currentEvents.findIndex(s => s.id === id);
+    if (idx === -1 || !modal) return;
+    currentIndex = idx;
+    renderModal(currentEvents[currentIndex]);
+    modal.classList.add("active");
+    document.body.style.overflow = "hidden";
+  }
+
+  function stepModal(delta) {
+    const nextIndex = currentIndex + delta;
+    if (nextIndex < 0 || nextIndex >= currentEvents.length) return;
+    currentIndex = nextIndex;
+    renderModal(currentEvents[currentIndex]);
   }
 
   // Filtrado de años
@@ -393,6 +446,15 @@ function initRoadmap() {
       if (e.target === modal) closeModal();
     });
   }
+  if (modalPrevBtn) modalPrevBtn.addEventListener("click", () => stepModal(-1));
+  if (modalNextBtn) modalNextBtn.addEventListener("click", () => stepModal(1));
+
+  document.addEventListener("keydown", (e) => {
+    if (!modal || !modal.classList.contains("active")) return;
+    if (e.key === "Escape") closeModal();
+    if (e.key === "ArrowLeft") stepModal(-1);
+    if (e.key === "ArrowRight") stepModal(1);
+  });
 
   function closeModal() {
     if (modal) {
@@ -402,6 +464,89 @@ function initRoadmap() {
   }
 
   renderRoadmap("all");
+}
+
+/* ============================================================================
+ * 🖼️ MOMENTOS QUE GUARDAMOS (GALERÍA CON LIGHTBOX)
+ * ============================================================================
+ */
+function initGalleryLightbox() {
+  const container = document.getElementById("gallery-moments-container");
+  const lightbox = document.getElementById("gallery-lightbox");
+  const lightboxImg = document.getElementById("gallery-lightbox-img");
+  const lightboxTitle = document.getElementById("gallery-lightbox-title");
+  const lightboxDesc = document.getElementById("gallery-lightbox-desc");
+  const lightboxStep = document.getElementById("gallery-lightbox-step");
+  const closeBtn = document.getElementById("gallery-lightbox-close");
+  const prevBtn = document.getElementById("gallery-lightbox-prev");
+  const nextBtn = document.getElementById("gallery-lightbox-next");
+
+  if (!container || !window.galleryMoments) return;
+
+  const moments = window.galleryMoments;
+  let currentIndex = -1;
+
+  container.innerHTML = "";
+  moments.forEach((moment, idx) => {
+    const card = document.createElement("div");
+    card.className = "gallery-card-frame arched-frame reveal-up";
+    card.innerHTML = `
+      <img src="${moment.image}" alt="${moment.alt}" class="gallery-image-arch" loading="lazy">
+      <h3 class="gallery-card-title">${moment.title}</h3>
+      <p class="gallery-card-desc">${moment.desc}</p>
+    `;
+    card.addEventListener("click", () => openLightbox(idx));
+    container.appendChild(card);
+  });
+
+  observeReveal(container.querySelectorAll(".reveal-up"));
+
+  function renderLightbox() {
+    const moment = moments[currentIndex];
+    if (!moment || !lightbox) return;
+    lightboxImg.src = moment.image;
+    lightboxImg.alt = moment.alt;
+    lightboxTitle.textContent = moment.title;
+    lightboxDesc.textContent = moment.desc;
+    if (lightboxStep) lightboxStep.textContent = `${currentIndex + 1} / ${moments.length}`;
+    if (prevBtn) prevBtn.disabled = currentIndex <= 0;
+    if (nextBtn) nextBtn.disabled = currentIndex >= moments.length - 1;
+  }
+
+  function openLightbox(idx) {
+    currentIndex = idx;
+    renderLightbox();
+    lightbox.classList.add("active");
+    document.body.style.overflow = "hidden";
+  }
+
+  function closeLightbox() {
+    lightbox.classList.remove("active");
+    document.body.style.overflow = "auto";
+  }
+
+  function stepLightbox(delta) {
+    const nextIndex = currentIndex + delta;
+    if (nextIndex < 0 || nextIndex >= moments.length) return;
+    currentIndex = nextIndex;
+    renderLightbox();
+  }
+
+  if (closeBtn) closeBtn.addEventListener("click", closeLightbox);
+  if (lightbox) {
+    lightbox.addEventListener("click", (e) => {
+      if (e.target === lightbox) closeLightbox();
+    });
+  }
+  if (prevBtn) prevBtn.addEventListener("click", () => stepLightbox(-1));
+  if (nextBtn) nextBtn.addEventListener("click", () => stepLightbox(1));
+
+  document.addEventListener("keydown", (e) => {
+    if (!lightbox || !lightbox.classList.contains("active")) return;
+    if (e.key === "Escape") closeLightbox();
+    if (e.key === "ArrowLeft") stepLightbox(-1);
+    if (e.key === "ArrowRight") stepLightbox(1);
+  });
 }
 
 /* ============================================================================
