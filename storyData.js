@@ -417,23 +417,20 @@ const loveQuotes = [
   }
 ];
 
-// Palabras exactas para el Pupiletras (15 palabras)
+// Palabras exactas para el Pupiletras (12 palabras)
 const wordSearchWords = [
   "CARIÑO",
   "AMOR",
-  "PAPI",
   "PAZ",
-  "NENA",
   "FELIZ",
   "TE AMO",
-  "CARRO",
-  "ESCUCHAR",
   "APRENDER",
   "CREER",
-  "PICNIC",
-  "BEBE",
   "BESO",
-  "MI VIDA"
+  "MI VIDA",
+  "DESTINO",
+  "JUNTOS",
+  "ETERNO"
 ];
 
 // Exportación para navegadores y Node.js

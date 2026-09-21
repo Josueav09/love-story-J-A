@@ -14,6 +14,8 @@
  */
 
 document.addEventListener("DOMContentLoaded", () => {
+  initLaunchLock();
+  initMobileNav();
   initMusicPlayer();
   initLoveCounter();
   initRoadmap();
@@ -22,6 +24,80 @@ document.addEventListener("DOMContentLoaded", () => {
   initLoveJar();
   initCoquetteParticles();
 });
+
+/* ============================================================================
+ * 🔒 CANDADO DE LANZAMIENTO (ABRE EL 22/09 A LAS 00:00)
+ * ============================================================================
+ */
+function initLaunchLock() {
+  const launchInfo = window.__anitaLaunch;
+  if (!launchInfo) return;
+
+  if (launchInfo.isPreview) {
+    const badge = document.createElement("div");
+    badge.className = "preview-mode-badge";
+    badge.textContent = "Vista previa: el candado sigue activo para todos los demás hasta el 22/09";
+    document.body.appendChild(badge);
+  }
+
+  if (launchInfo.unlocked) {
+    document.documentElement.classList.remove("is-locked");
+    return;
+  }
+
+  const daysEl = document.getElementById("lock-days");
+  const hoursEl = document.getElementById("lock-hours");
+  const minutesEl = document.getElementById("lock-minutes");
+  const secondsEl = document.getElementById("lock-seconds");
+  const pad = n => String(n).padStart(2, "0");
+
+  const timer = setInterval(tick, 1000);
+  tick();
+
+  function tick() {
+    const diff = launchInfo.target - Date.now();
+
+    if (diff <= 0) {
+      clearInterval(timer);
+      document.documentElement.classList.remove("is-locked");
+      return;
+    }
+
+    const days = Math.floor(diff / 86400000);
+    const hours = Math.floor((diff % 86400000) / 3600000);
+    const minutes = Math.floor((diff % 3600000) / 60000);
+    const seconds = Math.floor((diff % 60000) / 1000);
+
+    if (daysEl) daysEl.textContent = days;
+    if (hoursEl) hoursEl.textContent = pad(hours);
+    if (minutesEl) minutesEl.textContent = pad(minutes);
+    if (secondsEl) secondsEl.textContent = pad(seconds);
+  }
+}
+
+/* ============================================================================
+ * 🎀 MENÚ MÓVIL (HAMBURGUESA)
+ * ============================================================================
+ */
+function initMobileNav() {
+  const toggleBtn = document.getElementById("nav-toggle-btn");
+  const navLinks = document.getElementById("nav-links");
+  if (!toggleBtn || !navLinks) return;
+
+  toggleBtn.addEventListener("click", () => {
+    const isOpen = navLinks.classList.toggle("nav-open");
+    toggleBtn.classList.toggle("active", isOpen);
+    toggleBtn.setAttribute("aria-expanded", isOpen ? "true" : "false");
+  });
+
+  navLinks.querySelectorAll("a").forEach(link => {
+    link.addEventListener("click", () => {
+      navLinks.classList.remove("nav-open");
+      toggleBtn.classList.remove("active");
+      toggleBtn.setAttribute("aria-expanded", "false");
+    });
+  });
+}
 
 /* ============================================================================
  * 🎀 DICCIONARIO DE ICONOS SVG VECTORIALES (CERO EMOJIS)
@@ -486,9 +562,81 @@ function initBouquetColoring() {
 }
 
 /* ============================================================================
- * 🧩 5. PUPILETRAS / SOPA DE LETRAS COQUETTE
+ * 🧩 5. PUPILETRAS / SOPA DE LETRAS COQUETTE (Generación procedural)
  * ============================================================================
  */
+const WORDSEARCH_ROWS = 13;
+const WORDSEARCH_COLS = 14;
+const WORDSEARCH_FILLER = "ABCDEFGHILMNOPRSTUVAEIOUAMORSNRT";
+
+function displayifyWord(word) {
+  return word.charAt(0) + word.slice(1).toLowerCase();
+}
+
+function cleanWord(word) {
+  return word.replace(/\s+/g, "").toUpperCase();
+}
+
+// Genera una sopa de letras que garantiza que cada palabra objetivo
+// realmente exista en la grilla, en lugar de una cuadrícula fija a mano.
+function generateWordSearch(words, rows, cols) {
+  const grid = Array.from({ length: rows }, () => Array(cols).fill(null));
+  const placements = {};
+  const directions = [
+    { dr: 0, dc: 1 }, { dr: 0, dc: -1 },
+    { dr: 1, dc: 0 }, { dr: -1, dc: 0 },
+    { dr: 1, dc: 1 }, { dr: -1, dc: -1 },
+    { dr: 1, dc: -1 }, { dr: -1, dc: 1 }
+  ];
+
+  const sorted = [...words].sort((a, b) => b.clean.length - a.clean.length);
+
+  sorted.forEach(word => {
+    const letters = word.clean.split("");
+    let placed = false;
+
+    for (let attempt = 0; attempt < 300 && !placed; attempt++) {
+      const dir = directions[Math.floor(Math.random() * directions.length)];
+      const r0 = Math.floor(Math.random() * rows);
+      const c0 = Math.floor(Math.random() * cols);
+
+      const endR = r0 + dir.dr * (letters.length - 1);
+      const endC = c0 + dir.dc * (letters.length - 1);
+      if (endR < 0 || endR >= rows || endC < 0 || endC >= cols) continue;
+
+      let fits = true;
+      for (let i = 0; i < letters.length; i++) {
+        const r = r0 + dir.dr * i;
+        const c = c0 + dir.dc * i;
+        const existing = grid[r][c];
+        if (existing !== null && existing !== letters[i]) {
+          fits = false;
+          break;
+        }
+      }
+      if (!fits) continue;
+
+      for (let i = 0; i < letters.length; i++) {
+        const r = r0 + dir.dr * i;
+        const c = c0 + dir.dc * i;
+        grid[r][c] = letters[i];
+      }
+      placements[word.clean] = { r: r0, c: c0, dr: dir.dr, dc: dir.dc };
+      placed = true;
+    }
+  });
+
+  for (let r = 0; r < rows; r++) {
+    for (let c = 0; c < cols; c++) {
+      if (grid[r][c] === null) {
+        grid[r][c] = WORDSEARCH_FILLER[Math.floor(Math.random() * WORDSEARCH_FILLER.length)];
+      }
+    }
+  }
+
+  return { grid, placements };
+}
+
 function initWordSearch() {
   const gridContainer = document.getElementById("wordsearch-grid");
   const wordListContainer = document.getElementById("wordsearch-words-list");
@@ -501,41 +649,17 @@ function initWordSearch() {
 
   if (!gridContainer || !wordListContainer) return;
 
-  const gridData = [
-    ['C','A','R','I','Ñ','O','P','A','A','S','F','C','R','I'],
-    ['A','M','I','V','I','D','A','F','A','S','R','D','D','R'],
-    ['Ñ','O','M','N','E','E','Z','T','Z','E','R','D','G','F'],
-    ['T','R','B','D','W','E','E','D','E','I','E','C','C','N'],
-    ['C','R','E','E','R','D','R','T','Z','T','S','Z','R','P'],
-    ['K','A','U','R','N','Y','E','S','R','E','F','T','E','I'],
-    ['N','W','R','O','P','U','S','Z','V','A','X','L','E','C'],
-    ['A','E','R','D','Y','R','C','X','F','M','A','D','R','N'],
-    ['C','A','R','R','O','E','U','F','G','O','S','F','H','I'],
-    ['F','H','O','J','B','D','C','F','H','Z','H','Z','H','C'],
-    ['P','A','P','R','E','N','H','O','A','Z','I','L','E','F'],
-    ['A','D','M','A','S','E','A','T','R','G','H','H','X','T'],
-    ['P','A','C','D','O','R','R','A','R','S','D','Y','X','R'],
-    ['I','S','L','K','J','P','U','S','A','X','F','D','T','G'],
-    ['A','N','E','N','A','A','A','X','C','S','B','E','B','E']
-  ];
+  const sourceWords = (window.wordSearchWords && window.wordSearchWords.length)
+    ? window.wordSearchWords
+    : ["CARIÑO", "AMOR", "PAZ", "FELIZ", "TE AMO", "APRENDER", "CREER", "BESO", "MI VIDA"];
 
-  const targetWords = [
-    { display: "Cariño", clean: "CARIÑO", found: false },
-    { display: "Amor", clean: "AMOR", found: false },
-    { display: "Papi", clean: "PAPI", found: false },
-    { display: "Paz", clean: "PAZ", found: false },
-    { display: "Nena", clean: "NENA", found: false },
-    { display: "Feliz", clean: "FELIZ", found: false },
-    { display: "Te amo", clean: "TEAMO", found: false },
-    { display: "Carro", clean: "CARRO", found: false },
-    { display: "Escuchar", clean: "ESCUCHAR", found: false },
-    { display: "Aprender", clean: "APRENDER", found: false },
-    { display: "Creer", clean: "CREER", found: false },
-    { display: "Picnic", clean: "PICNIC", found: false },
-    { display: "Bebe", clean: "BEBE", found: false },
-    { display: "Beso", clean: "BESO", found: false },
-    { display: "Mi vida", clean: "MIVIDA", found: false }
-  ];
+  const targetWords = sourceWords.map(w => ({
+    display: displayifyWord(w),
+    clean: cleanWord(w),
+    found: false
+  }));
+
+  const { grid: gridData, placements } = generateWordSearch(targetWords, WORDSEARCH_ROWS, WORDSEARCH_COLS);
 
   let foundWordsCount = 0;
   if (totalCounter) totalCounter.textContent = targetWords.length;
@@ -715,17 +839,12 @@ function initWordSearch() {
       const unfound = targetWords.find(w => !w.found);
       if (!unfound) return;
 
-      const firstLetter = unfound.clean[0];
-      for (let r = 0; r < numRows; r++) {
-        for (let c = 0; c < numCols; c++) {
-          if (gridData[r][c] === firstLetter) {
-            const cell = cellElements[r][c];
-            cell.classList.add("hint-pulse");
-            setTimeout(() => cell.classList.remove("hint-pulse"), 1800);
-            showNotification(`Pista: Busca "${unfound.display}" (inicia con ${firstLetter})`);
-            return;
-          }
-        }
+      const spot = placements[unfound.clean];
+      if (spot) {
+        const cell = cellElements[spot.r][spot.c];
+        cell.classList.add("hint-pulse");
+        setTimeout(() => cell.classList.remove("hint-pulse"), 1800);
+        showNotification(`Pista: Busca "${unfound.display}" (inicia con ${unfound.clean[0]})`);
       }
     });
   }

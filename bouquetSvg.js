@@ -112,57 +112,74 @@ const defaultBouquetColors = {
   "leaf-1": "#74c69d",
   "leaf-2": "#74c69d",
   "leaf-3": "#95d5b2",
-  "leaf-4": "#95d5b2"
+  "leaf-4": "#95d5b2",
+
+  // Jarrón / base del ramo
+  "vase-cup": "#fdf0d5",
+  "vase-stem": "#d4a373",
+  "vase-base": "#d4a373"
 };
 
 const bouquetSvgContent = `
-<svg id="sanrio-bouquet-svg" viewBox="0 0 600 780" xmlns="http://www.w3.org/2000/svg" class="bouquet-svg">
+<svg id="sanrio-bouquet-svg" viewBox="0 0 600 900" xmlns="http://www.w3.org/2000/svg" class="bouquet-svg">
   <defs>
     <filter id="soft-shadow" x="-5%" y="-5%" width="110%" height="110%">
       <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#ffb7c5" flood-opacity="0.3"/>
     </filter>
   </defs>
 
-  <!-- ================= BACKGROUND PAPER WRAPPING ================= -->
+  <!-- ================= BACKGROUND PAPER WRAPPING (COLLAR DETRÁS DE LOS PERSONAJES) ================= -->
   <g id="wrapping-background">
-    <!-- Papel envoltorio fondo amplio -->
-    <path id="wrap-bg-main" class="colorable" d="M 100,230 Q 300,90 500,230 L 450,490 Q 300,530 150,490 Z" fill="#ffffff" stroke="#3d3442" stroke-width="3" stroke-linejoin="round"/>
-    
+    <!-- Papel envoltorio fondo amplio: forma de collar redondeado que enmarca a todos los personajes -->
+    <path id="wrap-bg-main" class="colorable" d="M 70,240 Q 300,50 530,240 Q 560,340 480,560 Q 300,610 120,560 Q 40,340 70,240 Z" fill="#ffffff" stroke="#3d3442" stroke-width="3" stroke-linejoin="round"/>
+
     <!-- Pliegue izquierdo del papel envoltorio -->
-    <path id="wrap-fold-left" class="colorable" d="M 100,230 L 60,340 Q 110,380 150,490 L 100,230 Z" fill="#ffffff" stroke="#3d3442" stroke-width="3" stroke-linejoin="round"/>
-    
+    <path id="wrap-fold-left" class="colorable" d="M 70,240 L 25,330 Q 70,410 120,560 L 70,240 Z" fill="#ffffff" stroke="#3d3442" stroke-width="3" stroke-linejoin="round"/>
+
     <!-- Pliegue derecho del papel envoltorio -->
-    <path id="wrap-fold-right" class="colorable" d="M 500,230 L 540,340 Q 490,380 450,490 L 500,230 Z" fill="#ffffff" stroke="#3d3442" stroke-width="3" stroke-linejoin="round"/>
+    <path id="wrap-fold-right" class="colorable" d="M 530,240 L 575,330 Q 530,410 480,560 L 530,240 Z" fill="#ffffff" stroke="#3d3442" stroke-width="3" stroke-linejoin="round"/>
   </g>
 
-  <!-- ================= FOLIAGE & FLOWERS (FONDO) ================= -->
+  <!-- ================= FOLIAGE & FLOWERS (ASOMANDO ENTRE LOS PERSONAJES) ================= -->
   <g id="flowers-background">
     <!-- Hojas decorativas -->
-    <path id="leaf-1" class="colorable" d="M 80,260 Q 60,210 110,200 Q 120,240 80,260 Z" fill="#ffffff" stroke="#3d3442" stroke-width="2.5"/>
-    <path id="leaf-2" class="colorable" d="M 520,260 Q 540,210 490,200 Q 480,240 520,260 Z" fill="#ffffff" stroke="#3d3442" stroke-width="2.5"/>
-    <path id="leaf-3" class="colorable" d="M 160,160 Q 180,110 220,130 Q 200,170 160,160 Z" fill="#ffffff" stroke="#3d3442" stroke-width="2.5"/>
-    <path id="leaf-4" class="colorable" d="M 440,160 Q 420,110 380,130 Q 400,170 440,160 Z" fill="#ffffff" stroke="#3d3442" stroke-width="2.5"/>
-
-    <!-- Tulipán Izquierdo -->
-    <path id="tulip-l-stem" class="colorable" d="M 125,270 Q 120,330 140,360 L 132,362 Q 112,330 117,270 Z" fill="#ffffff" stroke="#3d3442" stroke-width="2"/>
-    <path id="tulip-l-leaf" class="colorable" d="M 120,330 Q 90,300 95,270 Q 115,290 125,320 Z" fill="#ffffff" stroke="#3d3442" stroke-width="2"/>
-    <g id="tulip-l-flower">
-      <path id="tulip-l-left" class="colorable" d="M 105,270 C 85,250 85,220 105,200 C 115,225 115,250 105,270 Z" fill="#ffffff" stroke="#3d3442" stroke-width="2.5"/>
-      <path id="tulip-l-right" class="colorable" d="M 135,270 C 155,250 155,220 135,200 C 125,225 125,250 135,270 Z" fill="#ffffff" stroke="#3d3442" stroke-width="2.5"/>
-      <path id="tulip-l-center" class="colorable" d="M 105,270 Q 120,280 135,270 C 145,240 135,190 120,185 C 105,190 95,240 105,270 Z" fill="#ffffff" stroke="#3d3442" stroke-width="2.5"/>
+    <g id="leaf-1-group" transform="translate(-25,-10)">
+      <path id="leaf-1" class="colorable" d="M 80,260 Q 60,210 110,200 Q 120,240 80,260 Z" fill="#ffffff" stroke="#3d3442" stroke-width="2.5"/>
+    </g>
+    <g id="leaf-2-group" transform="translate(25,-10)">
+      <path id="leaf-2" class="colorable" d="M 520,260 Q 540,210 490,200 Q 480,240 520,260 Z" fill="#ffffff" stroke="#3d3442" stroke-width="2.5"/>
+    </g>
+    <g id="leaf-3-group" transform="translate(0,-25)">
+      <path id="leaf-3" class="colorable" d="M 160,160 Q 180,110 220,130 Q 200,170 160,160 Z" fill="#ffffff" stroke="#3d3442" stroke-width="2.5"/>
+    </g>
+    <g id="leaf-4-group" transform="translate(0,-25)">
+      <path id="leaf-4" class="colorable" d="M 440,160 Q 420,110 380,130 Q 400,170 440,160 Z" fill="#ffffff" stroke="#3d3442" stroke-width="2.5"/>
     </g>
 
-    <!-- Tulipán Derecho -->
-    <path id="tulip-r-stem" class="colorable" d="M 475,270 Q 480,330 460,360 L 468,362 Q 488,330 483,270 Z" fill="#ffffff" stroke="#3d3442" stroke-width="2"/>
-    <path id="tulip-r-leaf" class="colorable" d="M 480,330 Q 510,300 505,270 Q 485,290 475,320 Z" fill="#ffffff" stroke="#3d3442" stroke-width="2"/>
-    <g id="tulip-r-flower">
-      <path id="tulip-r-left" class="colorable" d="M 465,270 C 445,250 445,220 465,200 C 475,225 475,250 465,270 Z" fill="#ffffff" stroke="#3d3442" stroke-width="2.5"/>
-      <path id="tulip-r-right" class="colorable" d="M 495,270 C 515,250 515,220 495,200 C 485,225 485,250 495,270 Z" fill="#ffffff" stroke="#3d3442" stroke-width="2.5"/>
-      <path id="tulip-r-center" class="colorable" d="M 465,270 Q 480,280 495,270 C 505,240 495,190 480,185 C 465,190 455,240 465,270 Z" fill="#ffffff" stroke="#3d3442" stroke-width="2.5"/>
+    <!-- Tulipán Izquierdo: en el hueco entre Cinnamoroll y Pompompurin -->
+    <g id="tulip-l-group" transform="translate(78,50)">
+      <path id="tulip-l-stem" class="colorable" d="M 125,270 Q 120,330 140,360 L 132,362 Q 112,330 117,270 Z" fill="#ffffff" stroke="#3d3442" stroke-width="2"/>
+      <path id="tulip-l-leaf" class="colorable" d="M 120,330 Q 90,300 95,270 Q 115,290 125,320 Z" fill="#ffffff" stroke="#3d3442" stroke-width="2"/>
+      <g id="tulip-l-flower">
+        <path id="tulip-l-left" class="colorable" d="M 105,270 C 85,250 85,220 105,200 C 115,225 115,250 105,270 Z" fill="#ffffff" stroke="#3d3442" stroke-width="2.5"/>
+        <path id="tulip-l-right" class="colorable" d="M 135,270 C 155,250 155,220 135,200 C 125,225 125,250 135,270 Z" fill="#ffffff" stroke="#3d3442" stroke-width="2.5"/>
+        <path id="tulip-l-center" class="colorable" d="M 105,270 Q 120,280 135,270 C 145,240 135,190 120,185 C 105,190 95,240 105,270 Z" fill="#ffffff" stroke="#3d3442" stroke-width="2.5"/>
+      </g>
     </g>
 
-    <!-- Margaritas decorativas -->
-    <g id="daisy-1">
+    <!-- Tulipán Derecho: en el hueco entre Cinnamoroll y Kuromi -->
+    <g id="tulip-r-group" transform="translate(-78,50)">
+      <path id="tulip-r-stem" class="colorable" d="M 475,270 Q 480,330 460,360 L 468,362 Q 488,330 483,270 Z" fill="#ffffff" stroke="#3d3442" stroke-width="2"/>
+      <path id="tulip-r-leaf" class="colorable" d="M 480,330 Q 510,300 505,270 Q 485,290 475,320 Z" fill="#ffffff" stroke="#3d3442" stroke-width="2"/>
+      <g id="tulip-r-flower">
+        <path id="tulip-r-left" class="colorable" d="M 465,270 C 445,250 445,220 465,200 C 475,225 475,250 465,270 Z" fill="#ffffff" stroke="#3d3442" stroke-width="2.5"/>
+        <path id="tulip-r-right" class="colorable" d="M 495,270 C 515,250 515,220 495,200 C 485,225 485,250 495,270 Z" fill="#ffffff" stroke="#3d3442" stroke-width="2.5"/>
+        <path id="tulip-r-center" class="colorable" d="M 465,270 Q 480,280 495,270 C 505,240 495,190 480,185 C 465,190 455,240 465,270 Z" fill="#ffffff" stroke="#3d3442" stroke-width="2.5"/>
+      </g>
+    </g>
+
+    <!-- Margarita izquierda: asomando entre Pompompurin y My Melody -->
+    <g id="daisy-1" transform="translate(-10,135)">
       <path id="daisy-1-p1" class="colorable" d="M 125,370 C 115,355 125,340 135,350 Z" fill="#ffffff" stroke="#3d3442" stroke-width="2"/>
       <path id="daisy-1-p2" class="colorable" d="M 145,350 C 155,340 165,355 155,370 Z" fill="#ffffff" stroke="#3d3442" stroke-width="2"/>
       <path id="daisy-1-p3" class="colorable" d="M 155,375 C 170,380 165,395 150,395 Z" fill="#ffffff" stroke="#3d3442" stroke-width="2"/>
@@ -171,7 +188,8 @@ const bouquetSvgContent = `
       <circle id="daisy-1-c" class="colorable" cx="140" cy="380" r="10" fill="#ffffff" stroke="#3d3442" stroke-width="2"/>
     </g>
 
-    <g id="daisy-2">
+    <!-- Margarita derecha: asomando entre Kuromi y My Melody -->
+    <g id="daisy-2" transform="translate(10,135)">
       <path id="daisy-2-p1" class="colorable" d="M 465,370 C 455,355 465,340 475,350 Z" fill="#ffffff" stroke="#3d3442" stroke-width="2"/>
       <path id="daisy-2-p2" class="colorable" d="M 485,350 C 495,340 505,355 495,370 Z" fill="#ffffff" stroke="#3d3442" stroke-width="2"/>
       <path id="daisy-2-p3" class="colorable" d="M 495,375 C 510,380 505,395 490,395 Z" fill="#ffffff" stroke="#3d3442" stroke-width="2"/>
@@ -182,7 +200,7 @@ const bouquetSvgContent = `
   </g>
 
   <!-- ================= PERSONAJE: CINNAMOROLL (ARRIBA) ================= -->
-  <g id="char-cinnamoroll">
+  <g id="char-cinnamoroll" transform="translate(0,-10)">
     <!-- Oreja izquierda Cinnamoroll -->
     <path id="cinna-ear-l" class="colorable" d="M 230,195 C 190,190 140,200 135,230 C 130,260 170,270 210,240 C 225,230 230,210 230,195 Z" fill="#ffffff" stroke="#3d3442" stroke-width="3" stroke-linejoin="round"/>
     <path id="cinna-ear-in-l" class="colorable" d="M 190,215 C 160,215 150,235 155,245 C 170,255 195,240 200,225 Z" fill="#ffffff" stroke="#3d3442" stroke-width="1.5"/>
@@ -216,7 +234,7 @@ const bouquetSvgContent = `
   </g>
 
   <!-- ================= PERSONAJE: POMPOMPURIN / POCHACCO (IZQUIERDA) ================= -->
-  <g id="char-purin">
+  <g id="char-purin" transform="translate(-45,15)">
     <!-- Oreja izq caída -->
     <path id="purin-ear-l" class="colorable" d="M 125,340 C 95,330 85,380 90,410 C 95,430 115,420 120,380 Z" fill="#ffffff" stroke="#3d3442" stroke-width="3" stroke-linejoin="round"/>
     <!-- Oreja der -->
@@ -245,7 +263,7 @@ const bouquetSvgContent = `
   </g>
 
   <!-- ================= PERSONAJE: KUROMI (DERECHA) ================= -->
-  <g id="char-kuromi">
+  <g id="char-kuromi" transform="translate(45,15)">
     <!-- Orejas de arlequín Kuromi -->
     <path id="kuromi-ear-l" class="colorable" d="M 405,335 C 390,300 395,270 420,285 C 435,295 425,325 415,345 Z" fill="#ffffff" stroke="#3d3442" stroke-width="3"/>
     <circle id="kuromi-ball-l" class="colorable" cx="422" cy="285" r="7" fill="#ffffff" stroke="#3d3442" stroke-width="2"/>
@@ -283,7 +301,7 @@ const bouquetSvgContent = `
   </g>
 
   <!-- ================= PERSONAJE: HELLO KITTY (CENTRO) ================= -->
-  <g id="char-kitty">
+  <g id="char-kitty" transform="translate(0,20)">
     <!-- Oreja izq Kitty -->
     <path id="kitty-ear-l" class="colorable" d="M 240,290 C 230,260 250,240 270,260 Z" fill="#ffffff" stroke="#3d3442" stroke-width="3" stroke-linejoin="round"/>
     <!-- Oreja der Kitty -->
@@ -320,7 +338,7 @@ const bouquetSvgContent = `
   </g>
 
   <!-- ================= PERSONAJE: MY MELODY (ABAJO CENTRO) ================= -->
-  <g id="char-melody">
+  <g id="char-melody" transform="translate(0,50)">
     <!-- Oreja izquierda caída -->
     <path id="melody-ear-l" class="colorable" d="M 255,420 C 220,380 180,390 190,440 C 200,475 235,470 255,445 Z" fill="#ffffff" stroke="#3d3442" stroke-width="3" stroke-linejoin="round"/>
     <path id="melody-ear-in-l" class="colorable" d="M 230,420 C 205,405 195,430 205,445 C 220,460 235,445 230,420 Z" fill="#ffffff" stroke="#3d3442" stroke-width="2"/>
@@ -359,20 +377,20 @@ const bouquetSvgContent = `
   <!-- ================= LOWER CONE WRAPPER (FALDA DEL RAMO) ================= -->
   <g id="wrapping-cone">
     <!-- Papel cono inferior izquierdo -->
-    <path id="wrap-cone-left" class="colorable" d="M 150,490 Q 220,530 270,550 L 250,670 Q 180,630 150,490 Z" fill="#ffffff" stroke="#3d3442" stroke-width="3" stroke-linejoin="round"/>
+    <path id="wrap-cone-left" class="colorable" d="M 240,660 L 280,660 Q 255,745 230,830 L 70,830 Q 130,745 240,660 Z" fill="#ffffff" stroke="#3d3442" stroke-width="3" stroke-linejoin="round"/>
 
     <!-- Papel cono centro -->
-    <path id="wrap-cone-center" class="colorable" d="M 270,550 Q 300,555 330,550 L 350,670 Q 300,685 250,670 Z" fill="#ffffff" stroke="#3d3442" stroke-width="3" stroke-linejoin="round"/>
+    <path id="wrap-cone-center" class="colorable" d="M 280,660 L 320,660 Q 345,745 370,830 L 230,830 Q 255,745 280,660 Z" fill="#ffffff" stroke="#3d3442" stroke-width="3" stroke-linejoin="round"/>
 
     <!-- Papel cono derecho -->
-    <path id="wrap-cone-right" class="colorable" d="M 330,550 Q 380,530 450,490 L 450,490 Q 420,630 350,670 Z" fill="#ffffff" stroke="#3d3442" stroke-width="3" stroke-linejoin="round"/>
+    <path id="wrap-cone-right" class="colorable" d="M 320,660 L 360,660 Q 470,745 530,830 L 370,830 Q 345,745 320,660 Z" fill="#ffffff" stroke="#3d3442" stroke-width="3" stroke-linejoin="round"/>
 
-    <!-- Base inferior del ramo -->
-    <path id="wrap-cone-base" class="colorable" d="M 250,670 Q 300,685 350,670 L 340,705 Q 300,720 260,705 Z" fill="#ffffff" stroke="#3d3442" stroke-width="3" stroke-linejoin="round"/>
+    <!-- Ribete festoneado inferior del envoltorio -->
+    <path id="wrap-cone-base" class="colorable" d="M 70,830 Q 300,868 530,830 L 505,852 Q 300,884 95,852 Z" fill="#ffffff" stroke="#3d3442" stroke-width="3" stroke-linejoin="round"/>
   </g>
 
   <!-- ================= GRAN LAZO DE CINTA DEL RAMO ================= -->
-  <g id="main-ribbon-bow" filter="url(#soft-shadow)">
+  <g id="main-ribbon-bow" filter="url(#soft-shadow)" transform="translate(0,30)">
     <!-- Cola izquierda del lazo -->
     <path id="main-bow-tail-l" class="colorable" d="M 280,600 C 250,630 210,670 190,720 C 220,710 240,680 285,630 Z" fill="#ffffff" stroke="#3d3442" stroke-width="3.5" stroke-linejoin="round"/>
 
@@ -391,6 +409,13 @@ const bouquetSvgContent = `
 
     <!-- Nudo central del lazo -->
     <ellipse id="main-bow-knot" class="colorable" cx="300" cy="590" rx="22" ry="18" fill="#ffffff" stroke="#3d3442" stroke-width="3.5"/>
+  </g>
+
+  <!-- ================= JARRÓN / BASE DEL RAMO ================= -->
+  <g id="bouquet-vase">
+    <path id="vase-cup" class="colorable" d="M 230,845 L 370,845 L 345,880 L 255,880 Z" fill="#ffffff" stroke="#3d3442" stroke-width="3" stroke-linejoin="round"/>
+    <path id="vase-stem" class="colorable" d="M 291,880 L 309,880 L 306,892 L 294,892 Z" fill="#ffffff" stroke="#3d3442" stroke-width="2.5"/>
+    <ellipse id="vase-base" class="colorable" cx="300" cy="892" rx="50" ry="8" fill="#ffffff" stroke="#3d3442" stroke-width="3"/>
   </g>
 </svg>
 `;

@@ -46,11 +46,28 @@ Incorpora todas las cartas, escritos y memorias reales de los documentos:
 - Cero emojis unicode: reemplazados en su totalidad por iconos SVG delicados (lazos, rosas, corazones, estrellas, flechas).
 
 ### 3. Juegos & Experiencias Interactivas
-- **Pinta Nuestro Ramo de Sanrio**: Cinnamoroll, Hello Kitty, Pompompurin, Kuromi y My Melody en lienzo SVG interactivo con click-to-color, deshacer, coloreado mágico oficial y descarga en PNG.
-- **Pupiletras (Sopa de Letras)**: 15 palabras secretas en cuadrícula 14x15 con selección táctil/ratón, resaltado pastel, pistas y modal de felicitación.
+- **Pinta Nuestro Ramo de Sanrio**: Cinnamoroll, Hello Kitty, Pompompurin, Kuromi y My Melody en un ramo envuelto en papel con lazo y jarrón, lienzo SVG interactivo con click-to-color, deshacer, coloreado mágico oficial y descarga en PNG.
+- **Pupiletras (Sopa de Letras)**: 12 palabras secretas generadas dinámicamente en una cuadrícula 14x13 (nunca se repite la misma disposición), con selección táctil/ratón, resaltado pastel, pistas certeras y modal de felicitación.
 - **Frasquito de Notas de Amor**: Extracción interactiva de pensamientos y cartas secretas.
 - **Reproductor de Melodía Romántica**: Sintetizador con *Web Audio API* (funciona 100% offline).
 - **Contador en Vivo**: Tiempo juntos desde el 22 de junio de 2024.
+- **Menú móvil**: la barra de navegación se convierte en un menú hamburguesa desplegable en pantallas pequeñas.
+
+### 4. Candado de Lanzamiento (se abre el 22/09 a las 00:00, hora de Perú)
+La página completa permanece oculta detrás de una pantalla de cuenta regresiva hasta el instante exacto de nuestros veinte meses juntos (`2026-09-22T00:00:00-05:00`). Se controla desde `index.html` (constante `LAUNCH_TARGET` en el script del `<head>`) y `app.js` (`initLaunchLock`).
+
+**Cómo ver el avance mientras editas (dos formas):**
+
+1. **En tu propia computadora (localhost)**: el candado se salta automáticamente cuando abres la página desde `localhost`, `127.0.0.1` o directamente como archivo (`file://...`). Solo corre un servidor local en la carpeta del proyecto, por ejemplo:
+   ```bash
+   python -m http.server 8123
+   ```
+   y abre `http://localhost:8123/index.html` — verás el sitio completo, con un pequeño aviso oscuro abajo ("Vista previa...") recordándote que ese salto solo pasa ahí, no para Anita. No hace falta ningún parámetro extra.
+2. **En el enlace real ya publicado (GitHub Pages)**: agrega `?preview=1` al final, por ejemplo `https://tu-usuario.github.io/tu-repo/?preview=1`. Eso omite el candado solo en esa carga de la página (no queda guardado en el navegador) y muestra el mismo aviso de vista previa.
+
+Para confirmar que el candado sí funciona de verdad, abre el enlace normal — sin `localhost` y sin `?preview=1` — antes del 22/09: debe verse la pantalla de cuenta regresiva y no el resto del sitio. El enlace real que le compartas a Anita **no debe llevar `?preview=1`**.
+
+Si alguna vez cambias la fecha de apertura, edítala en la constante `LAUNCH_TARGET` dentro del `<script>` del `<head>` de `index.html` (es la que realmente bloquea la carga).
 
 ---
 
@@ -64,6 +81,6 @@ Incorpora todas las cartas, escritos y memorias reales de los documentos:
    - `storyData.js`
    - `bouquetSvg.js`
    - `README.md`
-   - `assets/` (`hero_portrait.jpg`, `cherry_swing.jpg`, `picnic_scene.jpg`)
+   - `assets/` (`hero_portrait.jpg`, `cherry_swing.jpg`, `juntos.png`)
 3. **Activar Pages**: En **Settings** > **Pages**, selecciona la rama `main` y la carpeta `/ (root)`. En 1 minuto tendrás tu enlace listo:
    `https://<tu-usuario>.github.io/<tu-repo>/`

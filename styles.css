@@ -54,6 +54,133 @@ body {
   position: relative;
 }
 
+/* ==========================================================================
+   🔒 CANDADO DE LANZAMIENTO: oculta todo el sitio hasta la fecha de apertura
+   ========================================================================== */
+html.is-locked,
+html.is-locked body {
+  overflow: hidden;
+  height: 100%;
+}
+
+html.is-locked body > *:not(#launch-lock-overlay) {
+  display: none !important;
+}
+
+#launch-lock-overlay {
+  display: none;
+}
+
+html.is-locked #launch-lock-overlay {
+  display: flex;
+}
+
+.launch-lock-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background-color: #fff2f5;
+  background-image:
+    linear-gradient(90deg, rgba(164, 19, 60, 0.07) 50%, transparent 50%),
+    linear-gradient(rgba(164, 19, 60, 0.07) 50%, transparent 50%);
+  background-size: 32px 32px;
+}
+
+.launch-lock-card {
+  max-width: 460px;
+  width: 100%;
+  text-align: center;
+  padding: 46px 34px 38px;
+  background: #ffffff;
+}
+
+.launch-lock-bow {
+  width: 52px;
+  height: 44px;
+  color: var(--magenta-deep);
+  margin-bottom: 14px;
+  animation: bowGlow 3s infinite alternate ease-in-out;
+}
+
+.launch-lock-eyebrow {
+  display: block;
+  font-family: var(--font-serif);
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--magenta-main);
+  margin-bottom: 10px;
+}
+
+.launch-lock-title {
+  font-family: var(--font-script);
+  font-size: 2.4rem;
+  font-weight: 400;
+  color: var(--magenta-deep);
+  line-height: 1.15;
+  margin-bottom: 14px;
+}
+
+.launch-lock-desc {
+  font-size: 0.98rem;
+  color: var(--magenta-deep);
+  opacity: 0.85;
+  line-height: 1.7;
+  margin-bottom: 26px;
+}
+
+.launch-lock-countdown {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.lock-counter-cell {
+  background: var(--pink-porcelain);
+  border: var(--border-delicate);
+  border-radius: var(--radius-card);
+  padding: 12px 4px;
+}
+
+.lock-counter-cell .number {
+  font-family: var(--font-serif);
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--magenta-dark);
+}
+
+.lock-counter-cell .label {
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--magenta-main);
+  opacity: 0.85;
+}
+
+/* Aviso de solo-desarrollo: aparece cuando el candado se salta por localhost o ?preview=1 */
+.preview-mode-badge {
+  position: fixed;
+  bottom: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10000;
+  background: #1a1a1a;
+  color: #ffe5ec;
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 8px 16px;
+  border-radius: var(--radius-pill);
+  border: 1px dashed #ffb3c6;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+  max-width: 92vw;
+  text-align: center;
+}
+
 ::selection {
   background: var(--magenta-main);
   color: #ffffff;
@@ -162,6 +289,7 @@ body {
 }
 
 .nav-coquette-bar {
+  position: relative;
   background: rgba(255, 255, 255, 0.94);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
@@ -223,6 +351,25 @@ body {
   transform: translateY(-2px);
 }
 
+.nav-toggle-btn {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: var(--pink-soft);
+  border: var(--border-delicate);
+  border-radius: 50%;
+  color: var(--magenta-deep);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.nav-toggle-btn .svg-icon {
+  width: 20px;
+  height: 20px;
+}
+
 /* ==========================================================================
    🌸 PANEL 1: HERO SECTION & RETRATO ARQUEADO (GINGHAM PANEL)
    ========================================================================== */
@@ -258,6 +405,13 @@ body {
   color: var(--magenta-main);
   margin-bottom: 20px;
   box-shadow: 0 4px 12px rgba(128, 15, 47, 0.06);
+}
+
+.hero-tag-badge-accent {
+  background: var(--magenta-deep);
+  color: #ffffff;
+  border-color: var(--magenta-deep);
+  margin-left: 10px;
 }
 
 .hero-title {
@@ -830,7 +984,8 @@ body {
 
 .arched-gallery-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(280px, 440px));
+  justify-content: center;
   gap: 35px;
 }
 
@@ -1408,6 +1563,10 @@ body {
     text-align: center;
   }
 
+  .hero-portrait-wrap {
+    order: -1;
+  }
+
   .hero-text-content {
     text-align: center;
   }
@@ -1424,6 +1583,41 @@ body {
   .arched-gallery-grid {
     grid-template-columns: 1fr;
   }
+
+  /* Menú hamburguesa: la barra de enlaces se convierte en un desplegable */
+  .nav-toggle-btn {
+    display: flex;
+  }
+
+  .nav-links {
+    display: flex;
+    position: absolute;
+    top: calc(100% + 10px);
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.98);
+    border: var(--border-delicate);
+    outline: 3px solid rgba(255, 204, 213, 0.5);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-hover);
+    padding: 14px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-8px);
+    transition: all 0.25s ease;
+  }
+
+  .nav-links.nav-open {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .nav-links a {
+    justify-content: flex-start;
+  }
 }
 
 @media (max-width: 768px) {
@@ -1435,10 +1629,6 @@ body {
     font-size: 3.4rem;
   }
 
-  .nav-links {
-    display: none;
-  }
-
   .counter-digits-grid {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -1447,20 +1637,140 @@ body {
     grid-template-columns: 1fr;
   }
 
-  .wordsearch-cell {
-    width: 21px;
-    height: 21px;
-    font-size: 0.78rem;
+  .wordsearch-coquette-box {
+    padding: 30px 14px 30px;
   }
 
   .wordsearch-banner-header {
     flex-direction: column;
     gap: 10px;
     text-align: center;
+    padding: 12px 16px;
   }
 
   .banner-left {
     flex-direction: column;
     gap: 6px;
+  }
+
+  .banner-counter-badge {
+    font-size: 0.85rem;
+    padding: 6px 14px;
+  }
+
+  /* La sopa de letras se desplaza horizontalmente en vez de desbordar la página */
+  .wordsearch-grid-wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 6px;
+  }
+
+  .wordsearch-grid {
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    width: 94%;
+    padding: 0 10px;
+  }
+
+  .site-header {
+    padding: 0 10px;
+    top: 10px;
+  }
+
+  .nav-coquette-bar {
+    padding: 8px 16px;
+  }
+
+  .nav-brand {
+    font-size: 1.1rem;
+  }
+
+  .hero-panel {
+    padding: 40px 0 35px;
+  }
+
+  .hero-title {
+    font-size: 2.1rem;
+  }
+
+  .hero-title em {
+    font-size: 2.7rem;
+  }
+
+  .hero-widgets-row {
+    width: 100%;
+  }
+
+  .coquette-music-widget,
+  .coquette-counter-strip {
+    width: 100%;
+  }
+
+  .counter-digits-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
+  }
+
+  .counter-cell .number {
+    font-size: 1.3rem;
+  }
+
+  .section-title-serif {
+    font-size: 1.9rem;
+  }
+
+  .roadmap-year-filters {
+    gap: 8px;
+  }
+
+  .year-filter-btn {
+    font-size: 0.8rem;
+    padding: 8px 14px;
+  }
+
+  .bouquet-coquette-box,
+  .wordsearch-coquette-box {
+    padding: 24px 12px 26px;
+  }
+
+  .palette-swatches {
+    justify-content: center;
+  }
+
+  .bouquet-actions-bar {
+    flex-direction: column;
+  }
+
+  .action-btn-coquette {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .wordsearch-cell {
+    width: 20px;
+    height: 20px;
+    font-size: 0.72rem;
+  }
+
+  .wordsearch-grid {
+    gap: 3px;
+    padding: 10px;
+  }
+}
+
+@media (max-width: 360px) {
+  .wordsearch-cell {
+    width: 17px;
+    height: 17px;
+    font-size: 0.62rem;
+  }
+
+  .wordsearch-grid {
+    gap: 2px;
+    padding: 8px;
   }
 }

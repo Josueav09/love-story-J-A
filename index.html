@@ -6,8 +6,72 @@
   <title>Josue & Anita — ¿Casualidad, Suerte o Destino?</title>
   <meta name="description" content="Ruta de amor y recuerdos de Josue y Anita (2021-2026): cartas completas, pupiletras interactivo y ramo Sanrio para pintar en estética Coquette.">
   <link rel="stylesheet" href="styles.css">
+  <script>
+    // La página permanece cerrada hasta el momento exacto de nuestros 20 meses.
+    // Se evalúa aquí, de forma síncrona, para que no haya parpadeo de contenido
+    // antes de tiempo.
+    //
+    // Vista previa para ir viendo cómo va quedando mientras se edita:
+    //  - En localhost / 127.0.0.1 / archivo abierto directamente (file://) el
+    //    candado se salta automáticamente. Así puedes correr un servidor local
+    //    (por ejemplo "python -m http.server") y ver el sitio completo en
+    //    cualquier momento, sin tocar nada más.
+    //  - En el enlace real (GitHub Pages) puedes agregar "?preview=1" al final
+    //    para saltarlo puntualmente en esa carga (no queda guardado). El
+    //    enlace que le compartas a Anita NO debe llevar "?preview=1".
+    // Ver README.md para más detalle.
+    (function () {
+      var LAUNCH_TARGET = new Date("2026-09-22T00:00:00-05:00").getTime();
+      var host = window.location.hostname;
+      var isLocalHost = host === "localhost" || host === "127.0.0.1" || host === "" || window.location.protocol === "file:";
+      var isPreviewParam = new URLSearchParams(window.location.search).has("preview");
+      var isForcedPreview = isLocalHost || isPreviewParam;
+      var isPastTarget = Date.now() >= LAUNCH_TARGET;
+      var unlocked = isForcedPreview || isPastTarget;
+      window.__anitaLaunch = {
+        target: LAUNCH_TARGET,
+        unlocked: unlocked,
+        isPreview: isForcedPreview && !isPastTarget
+      };
+      if (!unlocked) {
+        document.documentElement.classList.add("is-locked");
+      }
+    })();
+  </script>
 </head>
 <body>
+
+  <!-- ==================== CANDADO DE LANZAMIENTO (HASTA 22/09 00:00) ==================== -->
+  <div id="launch-lock-overlay" class="launch-lock-overlay">
+    <div class="launch-lock-card arched-frame">
+      <svg class="launch-lock-bow svg-icon" viewBox="0 0 24 24">
+        <path d="M12 12c-2-2.5-5.5-3.5-8-2-3 1.8-3 6.5 0 8 3 1.5 6.5-1.5 8-4.5 1.5 3 5 6 8 4.5 3-1.5 3-6.2 0-8-2.5-1.5-6-.5-8 2zm0 0c-.8 1.5-2.5 6-4 9-.5 1-1.5 1-2 0s.5-3.5 1.5-6l4.5-3zm0 0c.8 1.5 2.5 6 4 9 .5 1 1.5 1 2 0s-.5-3.5-1.5-6l-4.5-3zm0-1.5a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3z"/>
+      </svg>
+      <span class="launch-lock-eyebrow">Un regalo a punto de florecer</span>
+      <h1 class="launch-lock-title">Para Anita, con todo mi amor</h1>
+      <p class="launch-lock-desc">
+        Estoy preparando algo especial para el día en que cumplamos veinte meses juntos. Vuelve el 22 de septiembre para descubrirlo.
+      </p>
+      <div class="launch-lock-countdown">
+        <div class="lock-counter-cell">
+          <div id="lock-days" class="number">0</div>
+          <div class="label">Días</div>
+        </div>
+        <div class="lock-counter-cell">
+          <div id="lock-hours" class="number">00</div>
+          <div class="label">Horas</div>
+        </div>
+        <div class="lock-counter-cell">
+          <div id="lock-minutes" class="number">00</div>
+          <div class="label">Minutos</div>
+        </div>
+        <div class="lock-counter-cell">
+          <div id="lock-seconds" class="number">00</div>
+          <div class="label">Segundos</div>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- ==================== HEADER COQUETTE (STICKY) ==================== -->
   <header class="site-header">
@@ -18,7 +82,10 @@
         </svg>
         Josue & Anita
       </a>
-      <ul class="nav-links">
+      <button id="nav-toggle-btn" class="nav-toggle-btn" aria-label="Abrir menú" aria-expanded="false">
+        <svg class="svg-icon stroke-icon" viewBox="0 0 24 24"><line x1="4" y1="7" x2="20" y2="7"></line><line x1="4" y1="12" x2="20" y2="12"></line><line x1="4" y1="17" x2="20" y2="17"></line></svg>
+      </button>
+      <ul id="nav-links" class="nav-links">
         <li>
           <a href="#ruta">
             <svg class="svg-icon stroke-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 3"></path></svg>
@@ -65,13 +132,18 @@
             Crónica de Nuestro Amor
           </div>
 
+          <div class="hero-tag-badge hero-tag-badge-accent">
+            <svg class="svg-icon" viewBox="0 0 24 24"><path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z"/></svg>
+            Hoy cumplimos 20 meses juntos
+          </div>
+
           <h1 class="hero-title">
             ¿Casualidad, Suerte o Destino?
             <em>Para Anita, con todo mi amor</em>
           </h1>
 
           <p class="hero-description">
-            Desde aquel inesperado reencuentro en la panadería en 2024, pasando por nuestro primer verano juntos, hasta cumplir nuestro primer aniversario y cada nuevo día que nos seguimos eligiendo.
+            Desde aquel inesperado reencuentro en la panadería en 2024, pasando por nuestro primer verano juntos, hasta cumplir hoy, 22 de septiembre, nuestros veinte meses juntos y cada nuevo día que nos seguimos eligiendo.
           </p>
 
           <div class="hero-widgets-row">
@@ -120,7 +192,7 @@
             <svg class="portrait-top-bow svg-icon" viewBox="0 0 24 24">
               <path d="M12 12c-2-2.5-5.5-3.5-8-2-3 1.8-3 6.5 0 8 3 1.5 6.5-1.5 8-4.5 1.5 3 5 6 8 4.5 3-1.5 3-6.2 0-8-2.5-1.5-6-.5-8 2zm0 0c-.8 1.5-2.5 6-4 9-.5 1-1.5 1-2 0s.5-3.5 1.5-6l4.5-3zm0 0c.8 1.5 2.5 6 4 9 .5 1 1.5 1 2 0s-.5-3.5-1.5-6l-4.5-3zm0-1.5a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3z"/>
             </svg>
-            <img src="assets/hero_portrait.jpg" alt="Josue y Anita" class="hero-portrait-img">
+            <img src="assets/juntos.png" alt="Josue y Anita, juntos" class="hero-portrait-img">
           </div>
         </div>
 
@@ -243,16 +315,7 @@
       </div>
 
       <div class="arched-gallery-grid">
-        <!-- Tarjeta 1: Picnic -->
-        <div class="gallery-card-frame arched-frame">
-          <img src="assets/picnic_scene.jpg" alt="Tardes de Picnic y Dulces" class="gallery-image-arch">
-          <h3 class="gallery-card-title">Nuestras Tardes de Picnic & Dulces</h3>
-          <p class="gallery-card-desc">
-            Croissants, pasteles de fresa, café cortado y largas horas conversando donde el tiempo simplemente vuela.
-          </p>
-        </div>
-
-        <!-- Tarjeta 2: Columpio de Cerezos -->
+        <!-- Tarjeta: Columpio de Cerezos -->
         <div class="gallery-card-frame arched-frame">
           <img src="assets/cherry_swing.jpg" alt="Columpio bajo los Cerezos" class="gallery-image-arch">
           <h3 class="gallery-card-title">Los Atardeceres Rosados</h3>
@@ -345,7 +408,7 @@
         <span class="section-subtitle-serif">Juego & Complicidad</span>
         <h2 class="section-title-serif">Sopa de Letras</h2>
         <p class="section-desc-serif">
-          Encuentra las quince palabras que forman parte de nuestro idioma del amor. Desliza con el ratón o con tu dedo.
+          Encuentra las doce palabras que forman parte de nuestro idioma del amor. Desliza con el ratón o con tu dedo.
         </p>
       </div>
 
@@ -362,14 +425,14 @@
             </div>
           </div>
           <div class="banner-counter-badge">
-            Encontradas: <span id="found-words-count">0</span> de <span id="total-words-count">15</span>
+            Encontradas: <span id="found-words-count">0</span> de <span id="total-words-count">12</span>
           </div>
         </div>
 
         <!-- Grilla de letras -->
         <div class="wordsearch-grid-wrap">
           <div id="wordsearch-grid" class="wordsearch-grid">
-            <!-- Celdas 14x15 -->
+            <!-- Celdas generadas dinámicamente (14x13) -->
           </div>
         </div>
 
